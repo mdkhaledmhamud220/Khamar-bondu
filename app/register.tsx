@@ -34,7 +34,7 @@ export default function RegisterScreen() {
     console.log(userData);
 
     // registration er por login page e jabe
-    router.push('/login');
+    router.replace(`/login?role=${role}`);
   };
 
   return (
@@ -99,7 +99,7 @@ export default function RegisterScreen() {
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>ইতিমধ্যে অ্যাকাউন্ট আছে?</Text>
 
-        <TouchableOpacity onPress={() => router.push('/login')}>
+        <TouchableOpacity onPress={() => router.replace(`/login?role=${role}`)}>
           <Text style={styles.loginLink}>লগইন করুন</Text>
         </TouchableOpacity>
       </View>

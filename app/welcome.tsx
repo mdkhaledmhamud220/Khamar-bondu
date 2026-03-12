@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter } from "expo-router";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -15,14 +15,14 @@ export default function WelcomeScreen() {
 
       <TouchableOpacity
         style={styles.primaryBtn}
-        onPress={() => router.push('/register?role=farmer')}
+        onPress={() => router.push("/login?role=farmer")}
       >
         <Text style={styles.btnText}>খামারি হিসেবে শুরু করুন →</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.secondaryBtn}
-        onPress={() => router.push('/register?role=buyer')}
+        onPress={() => router.push("/login?role=buyer")}
       >
         <Text style={styles.secondaryText}>ক্রেতা হিসেবে শুরু করুন →</Text>
       </TouchableOpacity>
@@ -33,51 +33,51 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 25,
-    backgroundColor: '#e8efe8',
+    backgroundColor: "#e8efe8",
   },
 
   title: {
     fontSize: 36,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#0a5c2b',
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#0a5c2b",
     marginBottom: 20,
   },
 
   subtitle: {
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 40,
-    color: '#333',
+    color: "#333",
   },
 
   primaryBtn: {
-    backgroundColor: '#0a8f3c',
+    backgroundColor: "#0a8f3c",
     padding: 16,
     borderRadius: 10,
     marginBottom: 15,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   secondaryBtn: {
     borderWidth: 1,
-    borderColor: '#0a8f3c',
+    borderColor: "#0a8f3c",
     padding: 16,
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   btnText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 
   secondaryText: {
-    color: '#0a8f3c',
+    color: "#0a8f3c",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });

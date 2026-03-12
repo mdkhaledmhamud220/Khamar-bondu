@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 
 export default function LoginScreen() {
   const router = useRouter();
+  const { role } = useLocalSearchParams();
 
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -17,12 +18,18 @@ export default function LoginScreen() {
   const handleLogin = () => {
     console.log(phone, password);
 
-    router.push('/home');
+    {role === 'farmer' 
+    ? router.replace('/home')
+    : router.replace('/marketplace')}
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>লগইন করুন</Text>
+      <Text style={styles.title}>
+        {role === 'farmer'
+          ? 'খামারি হিসেবে লগইন করুন'
+          : 'ক্রেতা হিসেবে লগইন করুন'}
+      </Text>
 
       <TextInput
         placeholder="মোবাইল নাম্বার"
@@ -42,6 +49,13 @@ export default function LoginScreen() {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>লগইন</Text>
       </TouchableOpacity>
+      <View style={styles.loginContainer}>
+        <Text style={styles.loginText}>নতুন অ্যাকাউন্ট তৈরি করুন।</Text>
+
+        <TouchableOpacity onPress={() => router.replace(`/register?role=${role}`)}>
+          <Text style={styles.loginLink}>নিবন্ধন করুন</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -76,6 +90,21 @@ const styles = StyleSheet.create({
 
   buttonText: {
     color: 'white',
+    fontWeight: 'bold',
+  },
+
+  loginContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+
+  loginText: {
+    marginRight: 5,
+  },
+
+  loginLink: {
+    color: 'green',
     fontWeight: 'bold',
   },
 });
