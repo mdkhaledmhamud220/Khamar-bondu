@@ -1,7 +1,7 @@
 import react, { useState } from 'react'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import Button from '@/components/ui/button';
+import Button from '@/app/components/button';
 
 export default function ResetScreen(){
     const router = useRouter();

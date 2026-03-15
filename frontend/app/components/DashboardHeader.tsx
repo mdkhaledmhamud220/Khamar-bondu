@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
-import { Avatar } from './Avatar';
+import { Avatar } from '../../components/ui/Avatar';
 
 // Dashboard Header
 interface DashboardHeaderProps {
@@ -17,17 +17,21 @@ export default function DashboardHeader({
 }: DashboardHeaderProps) {
   return (
     <View style={styles.container}>
+      {/* Left: Hamburger menu */}
+      <TouchableOpacity onPress={onMenuPress} style={styles.iconButton}>
+        <MaterialIcons name="menu" size={28} color="#0a5c2b" />
+      </TouchableOpacity>
+
+      {/* Center: App Name */}
       <Text style={styles.title}>খামার বন্ধু</Text>
-      
-      {/* Right: Notification + Menu */}
+
+      {/* Right: Notification + Profile */}
       <View style={styles.right}>
         <TouchableOpacity onPress={onNotificationsPress} style={styles.iconButton}>
           <Ionicons name="notifications-outline" size={26} color="#0a5c2b" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={onMenuPress} style={styles.iconButton}>
-          <MaterialIcons name="menu" size={28} color="#0a5c2b" />
-        </TouchableOpacity>
+        <Avatar>{userName?.charAt(0) || 'ক'}</Avatar>
       </View>
     </View>
   );

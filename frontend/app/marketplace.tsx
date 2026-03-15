@@ -1,6 +1,7 @@
 import { Stack, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { Picker } from "@react-native-picker/picker";
 import {
   ScrollView,
   StyleSheet,
@@ -9,15 +10,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import DashboardHeader from '../components/ui/DashboardHeader';
+import DashboardHeader from './components/DashboardHeader';
 import Sidebar from '../app/components/Sidebar'; // Sidebar import
+import Filter from './components/filter'; // filter 
 
 export default function BuyerDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
   const [userData, setUserData] = useState(null as any);
   const [showSidebar, setShowSidebar] = useState(false); // sidebar toggle state
+  const [showFilter, setShowFilter] = useState(false); // sidebar toggle state
 
+  const [sort, setSort] = useState("default");
   const featuredCattle = [
     {
       id: 1,
@@ -64,16 +68,33 @@ export default function BuyerDashboard() {
         </View>
 
         {/* Search */}
-        <View style={styles.searchCard}>
-          <TextInput
-            placeholder="গরু খুঁজুন..."
-            style={styles.input}
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-          />
-          <TouchableOpacity style={styles.filterBtn}>
+        <View style={styles.filterCard}>
+      
+          {/* Filter Button */}
+          <TouchableOpacity 
+            style={styles.filterButton}
+            onPress={() => setShowFilter(!showFilter)}
+          >
+            <Ionicons name="filter" size={18} color="#444" />
+            
             <Text style={styles.filterText}>ফিল্টার</Text>
           </TouchableOpacity>
+
+          {/* Sort Section */}
+          <View style={styles.sortContainer}>
+            <Text style={styles.filterText}>দাম অনুযায়ী সাজান :  </Text>
+
+            <Picker
+              selectedValue={sort}
+              style={styles.picker}
+              onValueChange={(itemValue) => setSort(itemValue)}
+            >
+              <Picker.Item label="Default" value="default" />
+              <Picker.Item label="Price Low → High" value="priceLow" />
+              <Picker.Item label="Price High → Low" value="priceHigh" />
+            </Picker>
+          </View>
+
         </View>
 
         {/* Categories */}
@@ -130,7 +151,7 @@ export default function BuyerDashboard() {
                     color="#0a5c2b"
                     style={{ marginRight: 10 }}
                   />
-                  <TouchableOpacity style={styles.filterBtn}>
+                  <TouchableOpacity style={styles.Button}>
                     <Text style={styles.filterText}> বিস্তারিত </Text>
                   </TouchableOpacity>
                 </View>
@@ -139,6 +160,22 @@ export default function BuyerDashboard() {
           </TouchableOpacity>
         ))}
       </ScrollView>
+
+      {/* filter overlay */}
+      {showFilter && (
+        <View style={styles.filteroverlay}>
+          {/* background dim layer */}
+          <TouchableOpacity
+            style={styles.overlayBackground}
+            onPress={() => setShowFilter(false)}
+          />
+
+          {/* Filter container */}
+          <View style={styles.filterContainer}>
+            <Filter />
+          </View>
+        </View>
+      )}
 
       {/* Sidebar overlay */}
       {showSidebar && (
@@ -155,6 +192,7 @@ export default function BuyerDashboard() {
           </View>
         </View>
       )}
+      
     </View>
   );
 }
@@ -164,7 +202,7 @@ const styles = StyleSheet.create({
   welcome: { marginBottom: 20 },
   title: { fontSize: 22, fontWeight: 'bold' },
   subtitle: { color: '#666' },
-  searchCard: { flexDirection: 'row', marginBottom: 20 },
+  
   input: {
     flex: 1,
     borderWidth: 1,
@@ -190,13 +228,19 @@ const styles = StyleSheet.create({
   cow: { fontSize: 40, marginRight: 12 },
   cattleName: { fontSize: 18, fontWeight: 'bold' },
   info: { color: '#555', marginRight: 50 },
-  filterBtn: {
+  Button: {
     backgroundColor: 'green',
     paddingHorizontal: 16,
     justifyContent: 'center',
     borderRadius: 8,
   },
-  filterText: { color: 'white' },
+  
+
+  filterText: {
+    fontSize: 16,
+    color: "#333",
+  },
+
   price: { fontSize: 20, color: 'green', marginTop: 5 },
   seller: { fontSize: 12, color: '#777' },
 
@@ -207,7 +251,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0,
-    flexDirection: 'row',
+    flexDirection: "row-reverse",
     zIndex: 100,
   },
   overlayBackground: {
@@ -217,5 +261,55 @@ const styles = StyleSheet.create({
   sidebarContainer: {
     width: 250,
     backgroundColor: '#0a5c2b',
+  },
+
+  // filter
+  filteroverlay: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    flexDirection: "row",
+    zIndex: 100,
+  },
+
+  filterContainer: {
+    width: 250,
+    backgroundColor: "white",
+  },
+
+  filterCard: { 
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    marginBottom: 20,
+    backgroundColor: 'white',
+    padding: 16,
+    borderRadius: 5,
+  },
+
+  filterButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    borderRadius: 5,
+    borderWidth:1,
+    padding : 10,
+  },
+
+  sortContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  sortLabel: {
+    marginRight: 6,
+    fontSize: 14,
+  },
+
+  picker: {
+    width: 130,
+    height: 40,
+    borderRadius: 5,
   },
 });

@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import Button from '../components/ui/button'
+import Button from './components/button'
 
 export default function LoginScreen() {
   const router = useRouter();

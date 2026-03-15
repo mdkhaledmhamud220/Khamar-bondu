@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import Button from '../components/ui/button';
+import Button from './components/button';
 
 export default function RegisterScreen() {
   const router = useRouter();
