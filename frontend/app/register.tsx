@@ -9,7 +9,6 @@ import {
 
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import Button from './components/button';
-
 export default function RegisterScreen() {
   const router = useRouter();
   const { role } = useLocalSearchParams();

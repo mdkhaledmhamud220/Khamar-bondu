@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import Button from './components/button'
+import Button from './components/button';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -19,9 +19,11 @@ export default function LoginScreen() {
   const handleLogin = () => {
     console.log(phone, password);
 
-    {role === 'farmer' 
-    ? router.replace('/home')
-    : router.replace('/marketplace')}
+    if (role === 'farmer') {
+      router.replace('/farmerDashboard'); 
+    } else {
+      router.replace('/marketplace'); 
+    }
   };
 
   return (
@@ -47,23 +49,22 @@ export default function LoginScreen() {
         onChangeText={setPassword}
       />
 
-      <Button
-        title="লগইন"
-        onPress={handleLogin}
-      />
+      <Button title="লগইন" onPress={handleLogin} />
 
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>পাসওয়ার্ড ভুলে গেছেন?</Text>
-
-        <TouchableOpacity onPress={() => router.push(`/reset-pass?role=${role}`)}>
+        <TouchableOpacity
+          onPress={() => router.push(`/reset-pass?role=${role}`)}
+        >
           <Text style={styles.loginLink}>রিসেট করুন</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>নতুন অ্যাকাউন্ট তৈরি করুন।</Text>
-
-        <TouchableOpacity onPress={() => router.replace(`/register?role=${role}`)}>
+        <TouchableOpacity
+          onPress={() => router.replace(`/register?role=${role}`)}
+        >
           <Text style={styles.loginLink}>নিবন্ধন করুন</Text>
         </TouchableOpacity>
       </View>
@@ -72,38 +73,19 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 25,
-  },
-
+  container: { flex: 1, justifyContent: 'center', padding: 25 },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 25,
   },
-
-  input: {
-    borderWidth: 1,
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 15,
-  },
-
+  input: { borderWidth: 1, padding: 12, borderRadius: 8, marginBottom: 15 },
   loginContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
   },
-
-  loginText: {
-    marginRight: 5,
-  },
-
-  loginLink: {
-    color: 'green',
-    fontWeight: 'bold',
-  },
+  loginText: { marginRight: 5 },
+  loginLink: { color: 'green', fontWeight: 'bold' },
 });
