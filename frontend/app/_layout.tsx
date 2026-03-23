@@ -1,12 +1,17 @@
-import { Stack } from "expo-router";
+import { Stack } from 'expo-router';
+import { FarmProvider } from './context/FarmContext'; // 🔥 import add
 
 export default function RootLayout() {
   return (
-    <Stack initialRouteName="splash">
-      <Stack.Screen name="splash" options={{ headerShown: false }} />
-      <Stack.Screen name="login" options={{ headerShown: false }} />
-      <Stack.Screen name="register" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <FarmProvider>
+      {' '}
+      {/* 🔥 wrap করা হয়েছে */}
+      <Stack initialRouteName="splash">
+        <Stack.Screen name="splash" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen name="register" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </FarmProvider>
   );
 }
