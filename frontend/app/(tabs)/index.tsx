@@ -15,7 +15,7 @@ export default function WelcomeScreen() {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push('/register?role=farmer')}
+        onPress={() => router.push('/farmerDashboard')}
       >
         <Text style={styles.buttonText}>খামারি হিসেবে শুরু করুন →</Text>
       </TouchableOpacity>
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     padding: 25,
     backgroundColor: '#e8efe8',
   },
-
   title: {
     fontSize: 34,
     fontWeight: 'bold',
@@ -45,13 +44,7 @@ const styles = StyleSheet.create({
     color: '#0a5c2b',
     marginBottom: 20,
   },
-
-  subtitle: {
-    textAlign: 'center',
-    marginBottom: 40,
-    fontSize: 16,
-  },
-
+  subtitle: { textAlign: 'center', marginBottom: 40, fontSize: 16 },
   button: {
     backgroundColor: '#1c8f4a',
     padding: 15,
@@ -59,12 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 15,
   },
-
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-
+  buttonText: { color: 'white', fontWeight: 'bold' },
   outlineButton: {
     borderWidth: 1,
     borderColor: '#1c8f4a',
@@ -72,9 +60,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
-
-  outlineText: {
-    color: '#1c8f4a',
-    fontWeight: 'bold',
-  },
+  outlineText: { color: '#1c8f4a', fontWeight: 'bold' },
 });
