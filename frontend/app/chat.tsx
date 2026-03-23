@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  ScrollView
+  ScrollView,
+  Keyboard
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from 'expo-router';
-import { KeyboardAvoidingView, Platform } from "react-native";
 import type { NavigationProp } from "@react-navigation/native";
 
 export default function ChatPage({ navigation }: { navigation: NavigationProp<any> }) {
@@ -28,8 +28,29 @@ export default function ChatPage({ navigation }: { navigation: NavigationProp<an
     if (!message.trim()) return;
     setMessage("");
   };
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  useEffect(() => {
 
-  
+  const showSub = Keyboard.addListener(
+    "keyboardDidShow",
+    (e) => {
+      setKeyboardHeight(e.endCoordinates.height);
+    }
+  );
+
+  const hideSub = Keyboard.addListener(
+    "keyboardDidHide",
+    () => {
+      setKeyboardHeight(0);
+    }
+  );
+
+  return () => {
+    showSub.remove();
+    hideSub.remove();
+  };
+
+}, []);
 
   return (
     <View style={styles.container}>
@@ -89,7 +110,12 @@ export default function ChatPage({ navigation }: { navigation: NavigationProp<an
 
       {/* Message Input */}
 
-      <View style={styles.inputArea}>
+      <View
+        style={[
+          styles.inputArea,
+          { marginBottom: keyboardHeight }
+        ]}
+      >
         <TouchableOpacity>
           <Ionicons name="attach" size={24} />
         </TouchableOpacity>
@@ -272,6 +298,7 @@ inputArea:{
 flexDirection:"row",
 alignItems:"center",
 padding:10,
+paddingBottom:30,
 borderTopWidth:1,
 borderColor:"#eee",
 backgroundColor:"#fff"
